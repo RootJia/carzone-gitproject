@@ -14,4 +14,10 @@ class CarAdmin(admin.ModelAdmin):
     list_editable = ('is_featured',)
     search_fields = ('id', 'car_title', 'city', 'model', 'body_style', 'fuel_type')
     list_filter = ('city', 'model', 'body_style', 'fuel_type')
+
+    def get_queryset(self, request):
+        queryset = super(CarAdmin, self).get_queryset(request)
+        queryset = queryset.order_by('year')
+        return queryset
+        
 admin.site.register(Car, CarAdmin)
